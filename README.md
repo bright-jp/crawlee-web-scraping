@@ -1,6 +1,6 @@
 # CrawleeによるWebスクレイピング
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/) 
+[![Promo](https://github.com/bright-jp/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/) 
 
 効率的な [web scraping with Node.js](https://brightdata.jp/blog/how-tos/web-scraping-with-node-js) のためにCrawleeを使用する方法を学びます。
 
@@ -37,7 +37,7 @@ npm install crawlee
 
 データを効果的にスクレイピングするには、対象WebサイトのHTML構造を確認します。ブラウザでサイトを開き、ページ上の任意の場所を右クリックし、**Developer Tools** で **Inspect** または **Inspect Element** を選択します。
 
-![Inspect HTML element](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
+![Inspect HTML element](https://github.com/bright-jp/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
 
 **Developer Tools** の **Elements** タブには、ページのHTMLレイアウトが表示されます。この例では次のとおりです。  
 
@@ -45,7 +45,7 @@ npm install crawlee
 - 書籍タイトルは `h3` タグ内にあり、実際のタイトルはネストされた `a` タグの `title` 属性に格納されています。  
 - 書籍価格は、class が `price_color` の `p` タグ内にあります。  
 
-![Inspect the HTML elements on the Books to Scrape website](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
+![Inspect the HTML elements on the Books to Scrape website](https://github.com/bright-jp/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
 
 プロジェクトのルートディレクトリ配下に `scrape.js` という名前のファイルを作成し、以下のコードを追加します。
 
@@ -111,7 +111,7 @@ Bright Dataを利用するには、[home page](https://brightdata.jp/) の **Sta
 
 アカウント作成後、Bright Dataのダッシュボードにログインし、**Proxies & Scraping Infrastructure** に移動して、**[Residential Proxies](/proxy-types/residential-proxies)** を選択して新しいプロキシを追加します。
 
-![Add a residential proxy](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
+![Add a residential proxy](https://github.com/bright-jp/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
 
 デフォルト設定を維持したまま、**Add** をクリックしてレジデンシャルプロキシの作成を完了します。
 
@@ -119,7 +119,7 @@ Bright Dataを利用するには、[home page](https://brightdata.jp/) の **Sta
 
 作成後、ホスト、ポート、ユーザー名、パスワードを含むプロキシ認証情報を控えてください。次のステップで必要になります。
 
-![Bright Data proxy credentials](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
+![Bright Data proxy credentials](https://github.com/bright-jp/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
 
 プロジェクトのルートディレクトリ配下で、次のコマンドを実行して [axios](https://www.npmjs.com/package/axios) ライブラリをインストールします。
 
