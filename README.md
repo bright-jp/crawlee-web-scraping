@@ -1,27 +1,27 @@
-# Web Scraping with Crawlee
+# CrawleeによるWebスクレイピング
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.com/) 
+[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/) 
 
-Learn how to use Crawlee for efficient [web scraping with Node.js](https://brightdata.com/blog/how-tos/web-scraping-with-node-js):
+効率的な [web scraping with Node.js](https://brightdata.jp/blog/how-tos/web-scraping-with-node-js) のためにCrawleeを使用する方法を学びます。
 
-- [Basic Web Scraping with Crawlee](#basic-web-scraping-with-crawlee)
-- [Proxy Rotation with Crawlee](#proxy-rotation-with-crawlee)
-- [Sessions Management with Crawlee](#sessions-management-with-crawlee)
-- [Dynamic Content Handling with Crawlee](#dynamic-content-handling-with-crawlee)
+- [Crawleeによる基本的なWebスクレイピング](#basic-web-scraping-with-crawlee)
+- [Crawleeによるプロキシローテーション](#proxy-rotation-with-crawlee)
+- [Crawleeによるセッション管理](#sessions-management-with-crawlee)
+- [Crawleeによる動的コンテンツの処理](#dynamic-content-handling-with-crawlee)
 
-## Prerequisites
+## 前提条件
 
-Before you start, make sure you have the following prerequisites installed:
+開始する前に、以下の前提条件がインストールされていることを確認してください。
 
-* **[Node.js](https://nodejs.org/).**
-* **[npm](https://www.npmjs.com/):** This typically comes with Node.js. You can verify the installation by running `node -v` or `npm -v` in your terminal.
-* **A code editor of your choice:** This tutorial uses [Visual Studio Code](https://code.visualstudio.com/).
+* **[Node.js](https://nodejs.org/)。**
+* **[npm](https://www.npmjs.com/):** これは通常Node.jsに同梱されています。ターミナルで `node -v` または `npm -v` を実行してインストールを確認できます。
+* **任意のコードエディタ:** このチュートリアルでは [Visual Studio Code](https://code.visualstudio.com/) を使用します。
 
 ## Basic Web Scraping with Crawlee
 
-Let’s start by scraping the [Books to Scrape](https://books.toscrape.com/) website.
+まずは [Books to Scrape](https://books.toscrape.com/) のWebサイトをスクレイピングしてみましょう。
 
-Open your terminal or shell and initialize a Node.js project:
+ターミナルまたはシェルを開き、Node.jsプロジェクトを初期化します。
 
 ```bash
 mkdir crawlee-tutorial
@@ -29,25 +29,25 @@ cd crawlee-tutorial
 npm init -y
 ```
 
-Install the Crawlee library:
+Crawleeライブラリをインストールします。
 
 ```bash
 npm install crawlee
 ```
 
-To scrape data effectively, inspect the target website’s HTML structure. Open the site in your browser, right-click anywhere on the page, and select **Inspect** or **Inspect Element** in **Developer Tools**.
+データを効果的にスクレイピングするには、対象WebサイトのHTML構造を確認します。ブラウザでサイトを開き、ページ上の任意の場所を右クリックし、**Developer Tools** で **Inspect** または **Inspect Element** を選択します。
 
 ![Inspect HTML element](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
 
-The **Elements** tab in **Developer Tools** displays the page’s HTML layout. In this example:  
+**Developer Tools** の **Elements** タブには、ページのHTMLレイアウトが表示されます。この例では次のとおりです。  
 
-- Each book is inside an `article` tag with the class `product_pod`.  
-- The book title is in an `h3` tag, with the actual title stored in the `title` attribute of the nested `a` tag.  
-- The book price is inside a `p` tag with the class `price_color`.  
+- 各書籍は、class が `product_pod` の `article` タグ内にあります。  
+- 書籍タイトルは `h3` タグ内にあり、実際のタイトルはネストされた `a` タグの `title` 属性に格納されています。  
+- 書籍価格は、class が `price_color` の `p` タグ内にあります。  
 
 ![Inspect the HTML elements on the Books to Scrape website](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
 
-Under the root directory of your project, create a file named `scrape.js` and add the following code:
+プロジェクトのルートディレクトリ配下に `scrape.js` という名前のファイルを作成し、以下のコードを追加します。
 
 ```js
 const { CheerioCrawler } = require('crawlee');
@@ -67,15 +67,15 @@ const crawler = new CheerioCrawler({
 crawler.run(['https://books.toscrape.com/']);
 ```
 
-This code uses `CheerioCrawler` from `crawlee` to extract book titles and prices from `https://books.toscrape.com/`. It fetches the HTML, selects `<article class="product_pod">` elements using jQuery-like syntax, and logs the results to the console.
+このコードは `crawlee` の `CheerioCrawler` を使用して、`https://books.toscrape.com/` から書籍タイトルと価格を抽出します。HTMLを取得し、jQueryライクな構文で `<article class="product_pod">` 要素を選択し、結果をコンソールに出力します。
 
-After adding the code to your `scrape.js` file, run it with the following command:
+`scrape.js` ファイルにコードを追加したら、次のコマンドで実行します。
 
 ```bash
 node scrape.js
 ```
 
-An array of book titles and prices should print to your terminal:
+書籍タイトルと価格の配列がターミナルに表示されるはずです。
 
 ```
 …output omitted…
@@ -99,37 +99,37 @@ An array of book titles and prices should print to your terminal:
 
 ## Proxy Rotation with Crawlee
 
-A proxy acts as a middleman between your computer and the internet, forwarding your web requests while masking your IP address. This helps prevent rate limits and IP bans.
+プロキシは、あなたのコンピュータとインターネットの間に入る仲介役として機能し、IPアドレスを隠しながらWebリクエストを転送します。これにより、レート制限やIPアドレスのBANを防ぐのに役立ちます。
 
-Crawlee simplifies proxy implementation with built-in handling for retries, errors, and rotating proxies.
+Crawleeは、リトライ、エラー、ローテーティングプロキシを組み込みで扱えるため、プロキシ実装を簡単にします。
 
-Next, you'll set up a proxy, obtain a valid proxy address, and verify your requests are routed through it.
+次に、プロキシを設定し、有効なプロキシアドレスを取得し、リクエストがそれを経由していることを確認します。
 
-Since free proxies are often slow, insecure, and unreliable for sensitive web tasks, consider using a trusted service like Bright Data, which provides secure, stable, and reliable proxies. It also offers free trials, allowing you to test the service before committing. 
+無料プロキシは遅く、安全性が低く、機密性の高いWebタスクでは信頼性に欠けることが多いため、セキュアで安定した信頼性の高いプロキシを提供するBright Dataのような信頼できるサービスの利用を検討してください。また、無料トライアルも提供されているため、契約前にサービスをテストできます。 
 
-To use Bright Data, click the **Start free trial** button on their [home page](https://brightdata.com/) and fill in the required information to create an account.
+Bright Dataを利用するには、[home page](https://brightdata.jp/) の **Start free trial** ボタンをクリックし、必要事項を入力してアカウントを作成します。
 
-Once your account is created, log in to the Bright Data dashboard, navigate to **Proxies & Scraping Infrastructure**, and add a new proxy by selecting **[Residential Proxies](/proxy-types/residential-proxies)**:
+アカウント作成後、Bright Dataのダッシュボードにログインし、**Proxies & Scraping Infrastructure** に移動して、**[Residential Proxies](/proxy-types/residential-proxies)** を選択して新しいプロキシを追加します。
 
 ![Add a residential proxy](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
 
-Retain the default settings and finalize the creation of your residential proxy by clicking **Add**.
+デフォルト設定を維持したまま、**Add** をクリックしてレジデンシャルプロキシの作成を完了します。
 
-If you are asked to install a certificate, you can select **Proceed without certificate**. However, for production and real use cases, you should set up the certificate to prevent misuse if your proxy information is ever exposed.
+証明書のインストールを求められた場合は、**Proceed without certificate** を選択できます。ただし、本番環境および実運用のユースケースでは、プロキシ情報が漏えいした場合の不正利用を防ぐために証明書を設定するべきです。
 
-Once created, take note of the proxy credentials, including the host, port, username, and password. You need these in the next step:
+作成後、ホスト、ポート、ユーザー名、パスワードを含むプロキシ認証情報を控えてください。次のステップで必要になります。
 
 ![Bright Data proxy credentials](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
 
-Under the root directory of your project, run the following command to install the [axios](https://www.npmjs.com/package/axios) library:
+プロジェクトのルートディレクトリ配下で、次のコマンドを実行して [axios](https://www.npmjs.com/package/axios) ライブラリをインストールします。
 
 ```bash
 npm install axios
 ```
 
-The `axios` library is used to send a GET request to `http://lumtest.com/myip.json`, which returns details about the proxy in use.
+`axios` ライブラリは `http://lumtest.com/myip.json` にGETリクエストを送るために使用され、使用中のプロキシに関する詳細を返します。
 
-To implement this, create a file named `scrapeWithProxy.js` in your project's root directory and add the following code:
+これを実装するには、プロジェクトのルートディレクトリに `scrapeWithProxy.js` という名前のファイルを作成し、以下のコードを追加します。
 
 ```js
 const { CheerioCrawler } = require("crawlee");
@@ -175,21 +175,21 @@ crawler.run(["https://books.toscrape.com/"]);
 
 > **Note:**
 > 
-> Make sure to replace the `HOST`, `PORT`, `USERNAME`, and `PASSWORD` with your credentials.
+> `HOST`、`PORT`、`USERNAME`、`PASSWORD` は必ずご自身の認証情報に置き換えてください。
 
-This code uses `CheerioCrawler` from `crawlee` to scrape data from `https://books.toscrape.com/` while routing requests through a specified proxy.  
+このコードは `crawlee` の `CheerioCrawler` を使用し、指定したプロキシを経由して `https://books.toscrape.com/` からデータをスクレイピングします。  
 
-- The proxy is configured using `ProxyConfiguration`.  
-- A GET request to `http://lumtest.com/myip.json` fetches and logs proxy details.  
-- Book titles and prices are extracted using Cheerio’s jQuery-like syntax and logged to the console.  
+- プロキシは `ProxyConfiguration` を使用して設定されます。  
+- `http://lumtest.com/myip.json` へのGETリクエストにより、プロキシ詳細を取得してログに出力します。  
+- CheerioのjQueryライクな構文を使用して書籍タイトルと価格を抽出し、コンソールにログ出力します。  
 
-Run the code to test the proxy setup and verify its functionality:
+コードを実行してプロキシ設定をテストし、機能していることを確認します。
 
 ```bash
 node scrapeWithProxy.js
 ```
 
-You’ll see similar results to before, but this time, your requests are routed through Bright Data proxies. You should also see the details of the proxy logged in the console:
+以前と同様の結果が表示されますが、今回はリクエストがBright Dataプロキシを経由します。また、コンソールにプロキシの詳細もログ出力されるはずです。
 
 ```js
 Proxy Information: {
@@ -217,17 +217,17 @@ Proxy Information: {
 …output omitted..
 ```
 
-Running the script with `node scrapingWithBrightData.js` should display a different IP address each time, confirming that Bright Data rotates locations and IPs automatically. This rotation helps prevent blockages and IP bans when scraping websites.
+`node scrapingWithBrightData.js` でスクリプトを実行すると、毎回異なるIPアドレスが表示されるはずです。これにより、Bright DataがロケーションとIPを自動的にローテーションしていることが確認できます。このローテーションは、Webサイトをスクレイピングする際のブロックやIPアドレスのBANを防ぐのに役立ちます。
 
 > **Note:**
 > 
-> In the `proxyConfiguration`, you could have passed different proxy IPs, but since Bright Data does that for you, you don’t need to specify the IPs.
+> `proxyConfiguration` では異なるプロキシIPを渡すこともできますが、Bright Dataがそれを実施してくれるため、IPを指定する必要はありません。
 
 ## Sessions Management with Crawlee
 
-Sessions help maintain state across multiple requests, especially for sites using cookies or login sessions.  
+セッションは、複数のリクエスト間で状態を維持するのに役立ちます。特にCookieやログインセッションを使用するサイトで有効です。  
 
-To implement session management, create a file named `scrapeWithSessions.js` in your project's root directory and add the following code:
+セッション管理を実装するには、プロジェクトのルートディレクトリに `scrapeWithSessions.js` という名前のファイルを作成し、以下のコードを追加します。
 
 ```js
 const { CheerioCrawler, SessionPool } = require("crawlee");
@@ -269,19 +269,19 @@ const { CheerioCrawler, SessionPool } = require("crawlee");
 })();
 ```
 
-This code uses `CheerioCrawler` and `SessionPool` from `crawlee` to scrape data from `https://books.toscrape.com/`.  
+このコードは `crawlee` の `CheerioCrawler` と `SessionPool` を使用して、`https://books.toscrape.com/` からデータをスクレイピングします。  
 
-- A session pool is initialized and assigned to the crawler.  
-- The `requestHandler` logs session details and extracts book titles and prices using Cheerio selectors.  
-- The script performs two consecutive scraping runs, logging the session ID each time.  
+- セッションプールを初期化し、クローラーに割り当てます。  
+- `requestHandler` はセッションの詳細をログ出力し、Cheerioセレクタで書籍タイトルと価格を抽出します。  
+- スクリプトは連続して2回スクレイピングを実行し、そのたびにセッションIDをログ出力します。  
 
-Run the code to verify that different sessions are being used.
+コードを実行して、異なるセッションが使用されていることを確認してください。
 
 ```bash
 node scrapeWithSessions.js
 ```
 
-You should see similar results as before, but this time—with the session ID for each run:
+以前と同様の結果が表示されますが、今回は各実行でセッションIDも表示されます。
 
 ```
 Using session: session_GmKuZ2TnVX
@@ -296,17 +296,17 @@ Using session: session_lNRxE89hXu
 …output omitted…
 ```
 
-If you run the code again, you should see that a different session ID is being used.
+コードをもう一度実行すると、別のセッションIDが使用されていることが確認できるはずです。
 
 ## Dynamic Content Handling with Crawlee
 
-Scraping **dynamic websites** (those that load content via JavaScript) can be challenging, as data is only available after rendering.  
+**動的Webサイト**（JavaScriptでコンテンツを読み込むサイト）をスクレイピングするのは、レンダリング後にのみデータが利用可能になるため難しい場合があります。  
 
-To handle this, Crawlee integrates with [Puppeteer](https://pptr.dev/), a headless browser that renders JavaScript and interacts with web pages like a human.  
+これに対応するために、CrawleeはJavaScriptをレンダリングし、人間のようにWebページと対話できるヘッドレスブラウザである [Puppeteer](https://pptr.dev/) と統合されています。  
 
-For demonstration, we'll scrape content from [this YouTube page](https://www.youtube.com/watch?v=wZ6cST5pexo). **Before scraping, always review the site's rules and terms of service.**  
+デモとして、[this YouTube page](https://www.youtube.com/watch?v=wZ6cST5pexo) からコンテンツをスクレイピングします。**スクレイピングの前に、必ずサイトのルールおよび利用規約を確認してください。**  
 
-After reviewing the terms, create a file named `scrapeDynamicContent.js` in your project's root directory and add the following code:
+利用規約を確認したら、プロジェクトのルートディレクトリに `scrapeDynamicContent.js` という名前のファイルを作成し、以下のコードを追加します。
 
 ```js
 const { PuppeteerCrawler } = require("crawlee");
@@ -341,19 +341,19 @@ async function scrapeYouTube() {
 scrapeYouTube();
 ```
 
-Then, run the code with the following command:
+次に、以下のコマンドでコードを実行します。
 
 ```bash
 node scrapeDynamicContent.js
 ```
 
-This code uses `PuppeteerCrawler` from Crawlee to scrape comments from a YouTube video.  
+このコードはCrawleeの `PuppeteerCrawler` を使用して、YouTube動画のコメントをスクレイピングします。  
 
-- The crawler navigates to a specific YouTube video URL and waits for the page to fully load.  
-- It selects the first ten comments using the CSS selector `#comments #content-text`.  
-- Extracted comments are logged to the console.  
+- クローラーは特定のYouTube動画URLへ移動し、ページが完全に読み込まれるのを待ちます。  
+- CSSセレクタ `#comments #content-text` を使用して最初の10件のコメントを選択します。  
+- 抽出したコメントをコンソールにログ出力します。  
 
-When executed, the script will output the first ten comments from the selected video.
+実行すると、選択した動画から最初の10件のコメントが出力されます。
 
 ```
 INFO  PuppeteerCrawler: Starting the crawler.
@@ -370,10 +370,10 @@ I like this style, no youtube funny business. Just straight to the lifts
 …output omitted…
 ```
 
-You can find all the code used in this tutorial on [GitHub](https://github.com/See4Devs/crawlee-web-scraping).
+このチュートリアルで使用したすべてのコードは [GitHub](https://github.com/See4Devs/crawlee-web-scraping) で確認できます。
 
 ## Conclusion
 
-Crawlee can help improve the efficiency and reliability of your web scraping projects. Ready to elevate your web scraping projects with professional-grade data, tools, and proxies? Explore the comprehensive web scraping platform of Bright Data, offering [ready-to-use datasets](https://brightdata.com/products/datasets) and [advanced proxy services](https://brightdata.com/proxy-types) to streamline your data collection efforts.
+Crawleeは、Webスクレイピングプロジェクトの効率と信頼性を向上させるのに役立ちます。プロ仕様のデータ、ツール、プロキシでWebスクレイピングプロジェクトを次のレベルへ引き上げる準備はできていますか。 [ready-to-use datasets](https://brightdata.jp/products/datasets) と [advanced proxy services](https://brightdata.jp/proxy-types) を提供し、データ収集の取り組みを効率化するBright Dataの包括的なWebスクレイピングプラットフォームをご覧ください。
 
-Sign up now and start your free trial!
+今すぐ登録して、無料トライアルを開始しましょう！
